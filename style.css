@@ -299,6 +299,119 @@ nav a.active {
   transform: scale(1.06) translateY(-5px);
 }
 
+/* --- Powerful Promo Countdown --- */
+
+/* Keyframes untuk denyutan cahaya neon pada kontainer */
+@keyframes neonPulse {
+  0%,
+  100% {
+    box-shadow: 0 4px 6px -1px rgba(239, 68, 68, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px 5px rgba(239, 68, 68, 0.7);
+  }
+}
+
+/* Keyframes untuk loncatan angka setiap detik */
+@keyframes digitJump {
+  0% {
+    transform: translateY(0);
+  }
+  20% {
+    transform: translateY(-3px) scale(1.1);
+  }
+  40% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Keyframes untuk kedipan cepat titik dua (:) */
+@keyframes blinkSep {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.1;
+  }
+}
+
+.promo-banner.powerful {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  background-color: #ef4444; /* Full merah intens */
+  padding: 12px 25px;
+  border-radius: 50px;
+  margin: 1.5rem 0;
+  flex-wrap: wrap;
+  animation: neonPulse 2s infinite ease-in-out; /* Animasi denyutan kontainer */
+}
+
+.promo-text {
+  color: #ffffff; /* Putih bersih */
+  font-weight: 800;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.countdown-timer.powerful {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+  font-family: monospace; /* Font ala jam digital */
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 2px;
+}
+
+.cd-unit {
+  display: inline-block;
+}
+
+/* Mengaplikasikan animasi loncatan pada unit detik (paling sering bergerak) */
+.cd-unit.s {
+  animation: digitJump 1s infinite ease-in-out;
+}
+
+.cd-sep {
+  color: rgba(255, 255, 255, 0.6);
+  animation: blinkSep 1s infinite; /* Titik dua berkedip cepat */
+  font-weight: 300;
+  margin-top: -3px;
+}
+
+/* Responsif untuk Mobile */
+@media (max-width: 600px) {
+  .promo-banner.powerful {
+    gap: 8px;
+    padding: 10px 15px;
+  }
+  .promo-text {
+    font-size: 0.8rem;
+  }
+  .countdown-timer.powerful {
+    font-size: 1.3rem;
+  }
+}
+
+/* --- Efek Harga Coret (Promo) --- */
+.original-price {
+  text-decoration: line-through; /* Memberikan efek garis coret */
+  color: var(--text-muted); /* Warna abu-abu agar tidak terlalu mencolok */
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: -5px; /* Menarik harga utama sedikit lebih rapat ke atas */
+}
+
+/* Khusus untuk Card Growth (Background Gelap) agar harga coretnya tetap terbaca */
+.pricing-card.popular .original-price {
+  color: #9ca3af;
+}
+
 /* Modifikasi warna teks di dalam card gelap agar tetap terbaca jelas */
 .pricing-card.popular .tier {
   color: #9ca3af;

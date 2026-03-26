@@ -27,6 +27,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // C. Jalankan fungsi harga pertama kali
   updatePricing();
+
+  // D. Jalankan Timer Promo
+  startCountdown();
 });
 
 // --- 2. DYNAMIC PRICING LOGIC ---
@@ -35,6 +38,7 @@ const waNumber = "628970041552"; // Nomor WhatsApp Utama
 const pricingData = {
   landingPage: {
     starter: {
+      originalPrice: "Rp 2.999.000",
       price: "Rp 1.499.000",
       message:
         "Halo Merrfh Digital, saya tertarik order paket *Starter* untuk pembuatan *Landing Page*.",
@@ -54,6 +58,7 @@ const pricingData = {
         "*Cocok untuk bisnis baru yang ingin langsung tampil online dengan landing page.",
     },
     growth: {
+      originalPrice: "Rp 3.999.000",
       price: "Rp 1.999.000",
       message:
         "Halo Merrfh Digital, saya tertarik order paket *Growth* untuk pembuatan *Landing Page*.",
@@ -73,6 +78,7 @@ const pricingData = {
         "*Buat kamu yang pengen tampil lebih profesional dan punya kontrol lebih atas fitur & brand.",
     },
     ultimate: {
+      originalPrice: "Rp 5.499.000",
       price: "Rp 2.799.000",
       message:
         "Halo Merrfh Digital, saya tertarik order paket *Ultimate* untuk pembuatan *Landing Page*.",
@@ -91,6 +97,7 @@ const pricingData = {
   },
   companyProfile: {
     starter: {
+      originalPrice: "Rp 3.999.000",
       price: "Rp 1.999.000",
       message:
         "Halo Merrfh Digital, saya tertarik order paket *Starter* untuk pembuatan *Company Profile*.",
@@ -111,6 +118,7 @@ const pricingData = {
         "*Solusi tepat untuk membangun kredibilitas awal perusahaan di dunia digital.",
     },
     growth: {
+      originalPrice: "Rp 5.999.000",
       price: "Rp 2.999.000",
       message:
         "Halo Merrfh Digital, saya tertarik order paket *Growth* untuk pembuatan *Company Profile*.",
@@ -129,6 +137,7 @@ const pricingData = {
         "*Paket ideal untuk perusahaan skala menengah yang butuh profil lengkap dan tepercaya.",
     },
     ultimate: {
+      originalPrice: "Rp 6.999.000",
       price: "Rp 3.499.000",
       message:
         "Halo Merrfh Digital, saya tertarik order paket *Ultimate* untuk pembuatan *Company Profile*.",
@@ -150,6 +159,14 @@ const pricingData = {
 function updatePricing() {
   const type = document.getElementById("web-type").value;
   const data = pricingData[type];
+
+  // Update Harga Coret
+  document.getElementById("original-price-starter").innerText =
+    data.starter.originalPrice;
+  document.getElementById("original-price-growth").innerText =
+    data.growth.originalPrice;
+  document.getElementById("original-price-ultimate").innerText =
+    data.ultimate.originalPrice;
 
   // Update Harga
   document.getElementById("price-starter").innerText = data.starter.price;
@@ -318,4 +335,34 @@ function typeWriterEffect() {
 // Jalankan animasi saat file siap
 if (typewriterElement) {
   typeWriterEffect();
+}
+
+// --- 8. COUNTDOWN TIMER PROMO POWERFUL (1 JAM) ---
+function startCountdown() {
+  let timeInSeconds = 3600; // 1 Jam = 3600 detik
+  const hoursEl = document.querySelector("#countdown .cd-unit.h");
+  const minutesEl = document.querySelector("#countdown .cd-unit.m");
+  const secondsEl = document.querySelector("#countdown .cd-unit.s");
+
+  // Update timer setiap 1 detik (1000 milidetik)
+  const timerInterval = setInterval(() => {
+    const hours = Math.floor(timeInSeconds / 3600);
+    let minutes = Math.floor((timeInSeconds % 3600) / 60);
+    let seconds = timeInSeconds % 60;
+
+    // Tampilkan ke layar (format 00)
+    hoursEl.innerText = hours < 10 ? "0" + hours : hours;
+    minutesEl.innerText = minutes < 10 ? "0" + minutes : minutes;
+    secondsEl.innerText = seconds < 10 ? "0" + seconds : seconds;
+
+    // Jika waktu habis
+    if (timeInSeconds > 0) {
+      timeInSeconds--;
+    } else {
+      clearInterval(timerInterval);
+      // Hapus kelas powerful agar animasi berhenti
+      document.querySelector(".promo-banner").classList.remove("powerful");
+      document.querySelector(".countdown-timer").innerHTML = "PROMO BERAKHIR";
+    }
+  }, 1000);
 }
